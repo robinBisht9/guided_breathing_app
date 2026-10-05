@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Google Sans Flex", "Google Sans", "Roboto Flex", Roboto, ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", sans-serif;
+
+  --animate-spin-slow: spin-slow 18s linear infinite;
+  --animate-invite: invite 3.6s cubic-bezier(0.2, 0, 0, 1) infinite;
+
+  @keyframes spin-slow {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes invite {
+    0% {
+      transform: scale(1);
+      opacity: 0.45;
+    }
+    70%,
+    100% {
+      transform: scale(1.05, 1.4);
+      opacity: 0;
+    }
+  }
+}
+
+/* Material 3 colour roles → Tailwind colours (values are injected at runtime from the dynamic scheme) */
+@theme inline {
+  --color-primary: var(--md-primary);
+  --color-on-primary: var(--md-on-primary);
+  --color-primary-container: var(--md-primary-container);
+  --color-on-primary-container: var(--md-on-primary-container);
+  --color-secondary: var(--md-secondary);
+  --color-on-secondary: var(--md-on-secondary);
+  --color-secondary-container: var(--md-secondary-container);
+  --color-on-secondary-container: var(--md-on-secondary-container);
+  --color-tertiary: var(--md-tertiary);
+  --color-on-tertiary: var(--md-on-tertiary);
+  --color-tertiary-container: var(--md-tertiary-container);
+  --color-on-tertiary-container: var(--md-on-tertiary-container);
+  --color-error: var(--md-error);
+  --color-surface: var(--md-surface);
+  --color-surface-dim: var(--md-surface-dim);
+  --color-surface-bright: var(--md-surface-bright);
+  --color-on-surface: var(--md-on-surface);
+  --color-on-surface-variant: var(--md-on-surface-variant);
+  --color-surface-container-lowest: var(--md-surface-container-lowest);
+  --color-surface-container-low: var(--md-surface-container-low);
+  --color-surface-container: var(--md-surface-container);
+  --color-surface-container-high: var(--md-surface-container-high);
+  --color-surface-container-highest: var(--md-surface-container-highest);
+  --color-outline: var(--md-outline);
+  --color-outline-variant: var(--md-outline-variant);
+  --color-inverse-surface: var(--md-inverse-surface);
+  --color-inverse-on-surface: var(--md-inverse-on-surface);
+  --color-inverse-primary: var(--md-inverse-primary);
+  --color-scrim: var(--md-scrim);
+}
+
+:root {
+  /* Fallback (light, teal) — replaced instantly by the generated scheme */
+  --md-primary: #006a65;
+  --md-on-primary: #ffffff;
+  --md-primary-container: #9df2ea;
+  --md-on-primary-container: #00504c;
+  --md-secondary: #4a6360;
+  --md-on-secondary: #ffffff;
+  --md-secondary-container: #cce8e4;
+  --md-on-secondary-container: #324b48;
+  --md-tertiary: #48617a;
+  --md-on-tertiary: #ffffff;
+  --md-tertiary-container: #cfe5ff;
+  --md-on-tertiary-container: #304961;
+  --md-error: #ba1a1a;
+  --md-surface: #f4fbf9;
+  --md-surface-dim: #d5dbd9;
+  --md-surface-bright: #f4fbf9;
+  --md-on-surface: #161d1c;
+  --md-on-surface-variant: #3f4947;
+  --md-surface-container-lowest: #ffffff;
+  --md-surface-container-low: #eff5f3;
+  --md-surface-container: #e9efed;
+  --md-surface-container-high: #e3e9e8;
+  --md-surface-container-highest: #dde4e2;
+  --md-outline: #6f7977;
+  --md-outline-variant: #bec9c6;
+  --md-inverse-surface: #2b3231;
+  --md-inverse-on-surface: #ecf2f0;
+  --md-inverse-primary: #81d5ce;
+  --md-scrim: #000000;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scrollbar-width: thin;
+    scrollbar-color: var(--md-outline-variant) transparent;
+  }
+  body {
+    background-color: var(--md-surface);
+    color: var(--md-on-surface);
+    font-variation-settings: "ROND" 40;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+    transition:
+      background-color 400ms ease,
+      color 400ms ease;
+  }
+  ::selection {
+    background: var(--md-primary-container);
+    color: var(--md-on-primary-container);
+  }
+  :where(button, a, input, [role="button"], [role="switch"], [role="radio"]):focus-visible {
+    outline: 3px solid var(--md-secondary);
+    outline-offset: 2px;
+  }
+  button {
+    cursor: pointer;
+  }
+}
+
+@layer components {
+  .material-symbols-rounded {
+    font-family: "Material Symbols Rounded";
+    font-weight: normal;
+    font-style: normal;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+    font-feature-settings: "liga";
+    transition: font-variation-settings 250ms ease;
+  }
+
+  /* M3 state layer: hover / pressed overlay in the content colour */
+  .state-layer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: currentColor;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 160ms ease;
+  }
+  @media (hover: hover) {
+    .state-layer:hover::after {
+      opacity: 0.08;
+    }
+  }
+  .state-layer:active::after {
+    opacity: 0.12;
+  }
+}
+
+@utility rond-100 {
+  font-variation-settings: "ROND" 100;
+}
+@utility rond-0 {
+  font-variation-settings: "ROND" 0;
+}
+@utility elev-1 {
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.18),
+    0 1px 3px 1px rgb(0 0 0 / 0.1);
+}
+@utility elev-2 {
+  box-shadow:
+    0 1px 2px rgb(0 0 0 / 0.18),
+    0 2px 6px 2px rgb(0 0 0 / 0.1);
+}
+@utility elev-3 {
+  box-shadow:
+    0 4px 8px 3px rgb(0 0 0 / 0.1),
+    0 1px 3px rgb(0 0 0 / 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin-slow,
+  .animate-invite {
+    animation: none !important;
+  }
+}
