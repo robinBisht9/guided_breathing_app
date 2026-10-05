@@ -1,8 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Google Sans Flex", "Google Sans", "Roboto Flex", Roboto, ui-sans-serif, system-ui, -apple-system,
-    "Segoe UI", sans-serif;
+  --font-sans:
+    "Google Sans Flex", "Google Sans", "Roboto Flex", Roboto, ui-sans-serif,
+    system-ui, -apple-system, "Segoe UI", sans-serif;
 
   --animate-spin-slow: spin-slow 18s linear infinite;
   --animate-invite: invite 3.6s cubic-bezier(0.2, 0, 0, 1) infinite;
@@ -112,7 +113,14 @@
     background: var(--md-primary-container);
     color: var(--md-on-primary-container);
   }
-  :where(button, a, input, [role="button"], [role="switch"], [role="radio"]):focus-visible {
+  :where(
+    button,
+    a,
+    input,
+    [role="button"],
+    [role="switch"],
+    [role="radio"]
+  ):focus-visible {
     outline: 3px solid var(--md-secondary);
     outline-offset: 2px;
   }
